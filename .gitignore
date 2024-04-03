@@ -1,0 +1,11 @@
+CMakeFiles
+bin
+build
+.git
+.vscode
+
+CMakeCache.txt
+Makefile
+*.a
+*.cmake
+*.o
