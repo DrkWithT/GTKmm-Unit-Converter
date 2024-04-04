@@ -20,7 +20,7 @@ namespace demoapp::utils
     LengthEntry::LengthEntry(const char* name_cstr, LengthUnit unit, double factor)
     : unit_name {name_cstr}, unit_code {unit}, base_factor {factor} {}
 
-    const std::string& LengthEntry::viewName() const
+    const std::string& LengthEntry::viewName() const noexcept
     {
         return unit_name;
     }
@@ -30,7 +30,7 @@ namespace demoapp::utils
         if (initial <= LengthUnit::metric_mm && result <= LengthUnit::metric_mm)
             return ConversionDirection::in_metric;
 
-        if (initial >= LengthUnit::imperial_in && result >= LengthUnit >= LengthUnit::imperial_in)
+        if (initial >= LengthUnit::imperial_in && result >= LengthUnit::imperial_in)
             return ConversionDirection::in_imperial;
 
         if (initial <= LengthUnit::metric_mm && result >= LengthUnit::imperial_in)
@@ -71,7 +71,7 @@ namespace demoapp::utils
         return input_len * start_factor * m_to_ft / end_factor;
     }
 
-    [[nodiscard]] double LengthConverter::convertImperialMetric(double input_len, LengthUnit input_unit, LengthUnit result_unit)
+    [[nodiscard]] double LengthConverter::convertImperialMetric(double input_len, LengthUnit input_unit, LengthUnit result_unit) const
     {
         double start_factor = imperial_map.at(input_unit).base_factor;
         double end_factor = metric_map.at(result_unit).base_factor;
@@ -79,14 +79,14 @@ namespace demoapp::utils
         return input_len * start_factor / (m_to_ft * end_factor);
     }
 
-    LengthConverter::LengthConverter(std::initializer_list<LengthEntry> imperials, std::initializer_list<LengthEntry> metrics)
+    LengthConverter::LengthConverter(std::initializer_list<LengthEntry> metrics, std::initializer_list<LengthEntry> imperials)
     : metric_map {}, imperial_map {}
     {
-        for (const auto& i_item : imperials)
-            imperial_map.insert(i_item.unit_code, i_item);
-        
         for (const auto& m_item : metrics)
-            metric_map.insert(m_item.unit_code, m_item);
+            metric_map.emplace(m_item.unit_code, m_item);
+
+        for (const auto& i_item : imperials)
+            imperial_map.emplace(i_item.unit_code, i_item);        
     }
 
     const LengthEntry& LengthConverter::getUnitEntry(LengthUnit arg) const

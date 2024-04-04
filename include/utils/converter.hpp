@@ -53,7 +53,7 @@ namespace demoapp::utils
 
         [[nodiscard]] double convertMetricImperial(double input_len, LengthUnit input_unit, LengthUnit result_unit) const;
 
-        [[nodiscard]] double convertImperialMetric(double input_len, LengthUnit input_unit, LengthUnit result_unit);
+        [[nodiscard]] double convertImperialMetric(double input_len, LengthUnit input_unit, LengthUnit result_unit) const;
 
     public:
         LengthConverter(std::initializer_list<LengthEntry> metrics, std::initializer_list<LengthEntry> imperials);
