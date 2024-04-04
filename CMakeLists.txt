@@ -16,7 +16,7 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_HOME_DIRECTORY}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_HOME_DIRECTORY}/build")
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK REQUIRED gtkmm-3.0)
+pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtkmm-3.0 glibmm-2.4)
 
 include_directories("${CMAKE_HOME_DIRECTORY}/include")
 add_subdirectory(src)

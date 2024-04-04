@@ -1,7 +1,7 @@
 add_executable(demoapp main.cpp)
 
-add_subdirectory(app)
 add_subdirectory(utils)
+add_subdirectory(app)
 
 target_include_directories(demoapp PRIVATE "${GTK_INCLUDE_DIRS}")
 target_link_directories(demoapp PRIVATE "${CMAKE_HOME_DIRECTORY}/build" PRIVATE "${GTK_LIBRARY_DIRS}")
