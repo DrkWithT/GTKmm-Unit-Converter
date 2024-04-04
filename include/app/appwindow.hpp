@@ -1,6 +1,7 @@
 #ifndef APPWINDOW_HPP
 #define APPWINDOW_HPP
 
+#include <glibmm/ustring.h>
 #include <gtkmm-3.0/gtkmm/window.h>
 #include <gtkmm-3.0/gtkmm/dialog.h>
 #include <gtkmm-3.0/gtkmm/box.h>
@@ -19,7 +20,7 @@ namespace demoapp::app
     using MyEntry = demoapp::utils::LengthEntry;
     using MyUnit = demoapp::utils::LengthUnit;
 
-    class AppWindow : Gtk::Window
+    class AppWindow : public Gtk::Window
     {
     private:
         Gtk::Grid grid;

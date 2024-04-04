@@ -14,6 +14,10 @@
 
 namespace demoapp::app
 {
+    constexpr const char* app_title = "Demo App";
+    constexpr int app_window_width = 560;
+    constexpr int app_window_height = 480;
+
     std::initializer_list<MyEntry> metrics = {
         {"km", MyUnit::metric_km, 1000.0},
         {"m", MyUnit::metric_m, 1.0},
@@ -69,6 +73,8 @@ namespace demoapp::app
         grid.attach(enter_btn, 0, 2);
         grid.attach(adjust_btn, 1, 2);
 
+        add(grid);
+
         dbox.add(start_cbtn);
         dbox.add(km_rbtn);
         dbox.add(m_rbtn);
@@ -78,18 +84,20 @@ namespace demoapp::app
         dbox.add(ft_rbtn);
         dbox.add(yd_rbtn);
         dbox.add(mi_rbtn);
-
-        Gtk::Box dialog_hbox {Gtk::Orientation::ORIENTATION_HORIZONTAL, 16};
-        dialog_hbox.add(accept_dbtn);
-        dialog_hbox.add(cancel_dbtn);
-        dbox.add(dialog_hbox);
-        adjust_dialog.add(dbox);
+        dbox.add(accept_dbtn);
+        dbox.add(cancel_dbtn);
+        adjust_dialog.get_content_area()->add(dbox);
+        adjust_dialog.set_default_size(app_window_height, app_window_height);
+        adjust_dialog.set_resizable(false);
 
         enter_btn.signal_clicked().connect(sigc::mem_fun(*this, &AppWindow::onEnterBtnClick));
         adjust_btn.signal_clicked().connect(sigc::mem_fun(*this, &AppWindow::onAdjustBtnClick));
         accept_dbtn.signal_clicked().connect(sigc::mem_fun(*this, &AppWindow::onDialogAccept));
         cancel_dbtn.signal_clicked().connect(sigc::mem_fun(*this, &AppWindow::onDialogCancel));
 
+        set_default_size(app_window_width, app_window_height);
+        set_resizable(false);
+        set_title(app_title);
         show_all_children();
     }
 
@@ -104,6 +112,7 @@ namespace demoapp::app
     void AppWindow::onAdjustBtnClick()
     {
         adjust_dialog.show();
+        adjust_dialog.show_all();
     }
 
     void AppWindow::onDialogAccept()
